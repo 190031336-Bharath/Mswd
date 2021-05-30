@@ -1,0 +1,23 @@
+body
+{
+    background-color:cornflowerblue;
+}
+  header
+{
+   text-align:center;
+   background-color:snow;
+}
+img
+{
+    position:center;
+}
+li
+{
+    text-align:center;
+    background-color:cadetblue;
+}
+h1
+{
+    text-align:center;
+    background-color:slategrey;
+}
