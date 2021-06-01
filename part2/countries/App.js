@@ -1,23 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
-import DisplayCountryDetails from './components/DisplayCountryDetails'
+import DisplayCountryDetails from './component/DisplayCountryDetails'
 
-const App = () => {
+const App = () => 
+{
   const [input, setInput] = useState('')
   const [countries, setCountries] = useState([])
   const [searchCountries, setSearchCountries] = useState([])
 
-  const hook = () => {
+  const hook = () => 
+  {
     axios.get("https://restcountries.eu/rest/v2/all").then((response) => setCountries(response.data))
-  }
+  };
   useEffect(hook, [])
 
-  const findCounties = (event) => {
-    setInput(event.target.value)
-    const searchCountries = countries.filter((country) => country.name.toLowerCase().includes(event.target.value.toLowerCase()) === true)
-    setSearchCountries(searchCountries)
-  }
+  const findCounties = (event) => 
+  {
+      setInput(event.target.value)
+      const searchCountries = countries.filter((country) => country.name.toLowerCase().includes(event.target.value.toLowerCase()) === true)
+      setSearchCountries(searchCountries)
+  };
 
+  
   return (
     <div>
       <form>
@@ -25,8 +29,8 @@ const App = () => {
       </form>
       <DisplayCountryDetails searchCountries={searchCountries} input={input} />
     </div>
-  )
+  );
 }
 
 
-export default App
+export default App;
