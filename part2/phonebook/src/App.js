@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import Filter from './components/Filter'
-import PersonForm from './components/PersonForm'
-import Notification from './components/Notification'
-import personService from './services/persons'
+import Filter from './component/Filter'
+import PersonForm from './component/PersonForm'
+import Notification from './component/Notification'
+import personService from './services/person'
 import './index.css'
 
-const App = () => {
+const App = () => 
+{
     useEffect(() => personService.getAll().then((initialPersons) => { setPersons(initialPersons); setPersonToShow(initialPersons) }), [])
 
     const [persons, setPersons] = useState([])
@@ -15,15 +16,18 @@ const App = () => {
     const [errorMessage, setErrorMessage] = useState(null)
     const [messageState, setMessageState] = useState('success')
 
-    const getName = (event) => {
+    const getName = (event) => 
+    {
         setNewName(event.target.value)
-    }
+    };
 
-    const getNumber = (event) => {
+    const getNumber = (event) => 
+    {
         setNewNumber(event.target.value)
-    }
+    };
 
-    const submit = (event, number) => {
+    const submit = (event, number) =>
+     {
         event.preventDefault();
         const checkIfNameExists = persons.filter(person => person.name === newName)
         if (checkIfNameExists.length !== 0) {
@@ -42,7 +46,7 @@ const App = () => {
                     setPersons(persons.filter(p => p.id !== id))
                     setPersonToShow(personToShow.filter(p => p.id !== id))
                 })
-            }
+            };
             setErrorMessage(`Modified number for ${newName}`)
             setMessageState('success')
             setTimeout(() => setErrorMessage(null), 5000)
@@ -52,7 +56,7 @@ const App = () => {
             const newObj = {
                 name: newName,
                 number: newNumber
-            }
+            };
 
             personService.create(newObj)
                 .then(returnedPerson => {
@@ -71,12 +75,13 @@ const App = () => {
                     setNewNumber('')
                 })
         }
-    }
+    };
 
-    const filterContent = (event) => {
+    const filterContent = (event) => 
+    {
         const showPerson = persons.filter((person) => person.name.toLowerCase().includes(event.target.value.toLowerCase()) === true)
         setPersonToShow(showPerson)
-    }
+    };
 
     const deletePerson = (event, id, name) => {
         event.preventDefault()
@@ -87,7 +92,7 @@ const App = () => {
             })
         }
 
-    }
+    };
 
     return (
         <div>
@@ -103,10 +108,10 @@ const App = () => {
                         <button onClick={(event) => deletePerson(event, person.id, person.name)}>delete</button>
                         <br />
                     </div>
-                )
+                );
             })}
         </div>
-    )
+    );
 }
 
-export default App
+export default App;
