@@ -1,6 +1,7 @@
 import React from 'react'
 
-const PersonForm = ({ submit, getName, newName, getNumber, newNumber }) => {
+const PersonForm = ({ submit, getName, newName, getNumber, newNumber }) =>
+ {
     return (
         <>
             <h2>add a new</h2>
@@ -16,7 +17,7 @@ const PersonForm = ({ submit, getName, newName, getNumber, newNumber }) => {
                 </div>
             </form>
         </>
-    )
-}
+    );
+};
 
-export default PersonForm
+export default PersonForm;
