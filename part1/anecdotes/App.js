@@ -11,8 +11,9 @@ const Anecdote = (props) => {
     <>
       {props.anecdote}
       <br />
-      has {props.votes} vote(s)
+     has {props.votes} vote(s)
     </>
+
   );
 };
 
@@ -52,6 +53,7 @@ const App = (props) => {
     newVotes[selected] += 1;
     setVotes(newVotes);
     setHasVotes(true);
+    
   };
 
   const handleButtonClick = (type) => {
@@ -77,6 +79,7 @@ const App = (props) => {
       return acc;
     },
     { num: 0 }
+    
   );
 
   const maxVotedAnecdote = anecdotes[maxVote.idx];
@@ -107,4 +110,5 @@ const anecdotes = [
 ];
 
 ReactDOM.render(<App anecdotes={anecdotes} />, document.getElementById("root"));
+
 export default App
