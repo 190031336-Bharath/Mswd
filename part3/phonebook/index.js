@@ -1,19 +1,20 @@
-require('dotenv').config()
-const express = require('express')
-const morgan = require('morgan')
-const cors = require('cors')
-const app = express()
-const Person = require('./models/person')
+require('dotenv').config();
+const express = require('express');
+const morgan = require('morgan');
+const cors = require('cors');
+const app = express();
+const Person = require('./models/person');
 
 app.use(express.json())
 app.use(cors())
 
-morgan.token('post', (request) => {
+morgan.token('post', (request) =>
+{
   if (request.method === 'POST')
     return JSON.stringify(request.body)
   else
     return ''
-})
+});
 
 morgan.format('postFormat', ':method :url :status :res[content-length] - :response-time ms :post')
 
@@ -25,16 +26,17 @@ app.get('/info', (request, response) => {
         <p>Phonebook has info for ${persons.length} people</p>
         <p>${new Date}</p>
         `)
-  })
-})
+  });
+});
 
 app.get('/api/persons', (request, response) => {
   Person.find({}).then(persons => {
     response.json(persons)
   })
-})
+});
 
-app.post('/api/persons', (request, response, next) => {
+app.post('/api/persons', (request, response, next) =>
+  {
   const body = request.body
 
   if (body.name === undefined || body.number === undefined) {
@@ -44,7 +46,7 @@ app.post('/api/persons', (request, response, next) => {
   const person = new Person({
     name: body.name,
     number: body.number
-  })
+  });
 
   person.save()
     .then(savedPerson => savedPerson.toJSON())
@@ -52,13 +54,15 @@ app.post('/api/persons', (request, response, next) => {
       response.json(savedAndFormattedPerson)
     })
     .catch(error => next(error))
-})
+});
 
-app.get('/api/persons/:id', (request, response) => {
-  Person.findById(request.params.id).then(person => {
+app.get('/api/persons/:id', (request, response) =>
+     {
+  Person.findById(request.params.id).then(person =>
+     {
     response.json(person)
-  })
-})
+  });
+});
 
 app.put('/api/persons/:id', (request, response, next) => {
   const body = request.body
@@ -66,10 +70,11 @@ app.put('/api/persons/:id', (request, response, next) => {
   const person = {
     name: body.name,
     number: body.number,
-  }
+  };
 
   Person.findByIdAndUpdate(request.params.id, person, { new: true })
-    .then(updatedPerson => {
+    .then(updatedPerson => 
+      {
       response.json(updatedPerson)
     })
     .catch(error => next(error))
@@ -81,9 +86,10 @@ app.delete('/api/persons/:id', (request, response, next) => {
       response.status(204).end()
     })
     .catch(error => next(error))
-})
+});
 
-const errorHandler = (error, request, response, next) => {
+const errorHandler = (error, request, response, next) =>
+{
   console.error(error.message)
 
   if (error.name === 'CastError') {
@@ -93,10 +99,10 @@ const errorHandler = (error, request, response, next) => {
   }
 
   next(error)
-}
+};
 
 app.use(errorHandler)
 
 const PORT = process.env.PORT
 app.listen(PORT)
-console.log(`Server running on ${PORT}`)
+console.log(`Server running on ${PORT}`);
