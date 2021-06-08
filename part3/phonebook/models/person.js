@@ -8,7 +8,8 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, useFind
   {
     console.log('connected to MongoDB')
   })
-  .catch((error) => {
+  .catch((error) => 
+         {
     console.log('error connecting to MongoDB:', error.message)
   })
 
